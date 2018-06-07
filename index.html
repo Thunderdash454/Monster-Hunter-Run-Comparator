@@ -1,3 +1,20 @@
+
+<?php
+$servername = 'localhost';
+$username = 'root';
+$password = ' ';
+
+require_once 'MHData.php';
+ 
+try {
+    $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    echo "Connected to $ at $host successfully.";
+} catch (PDOException $pe) {
+    die("Could not connect to the database $dbname :" . $pe->getMessage());
+}
+?>
+
+
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
@@ -11,20 +28,29 @@
 	</style>
 </head>
 <Body>
+	
 
+<?php
 
-	<div align="Right">
-		<a href="url">Login</a><br>
-		<a href="url">Register</a><br>
+$sql = "SELECT userId, username, password, email, accountType, gamerTag FROM user");
+$result = $conn->query($sql);
+
+?>
+<div>
+<div align="left">
+		<nav>
+			<a href="login.html">Login</a><br>
+			<a href="register.html">Register</a><br>
+		</nav>
 	</div>
+<br>
+<br>
 
 
-
+<div id="runSubmitPopOut"> 
 Character Name:<br>
-
-
-<div class="control">
-	<div id="inputBar">
+<div id="inputBar">
+	<div class="control">
 		<input class="input" type="text" name="name"><br>
 	</div>
 </div>
@@ -37,18 +63,15 @@ GamerTag:<br>
 </div>
 
 Platform:<br>
-
 <div class="control">
   <div class="select">
 	<select name="platform">
 		<option  value="ps4">PS4</option>
 		<option  value="xbone">Xbox ONE</option>
 		<option	 value="pc">PC</option>
-		
 	</select>
   </div>
 </div>
-
 Weapon:<br>
 <div class="control">
   <div class="select">
@@ -70,6 +93,13 @@ Weapon:<br>
 	</select>
   </div>
 </div>
+
+Bomb Run?:<br>
+<label class="checkbox">
+  <input type="checkbox" value="isBomb">
+  Yes
+</label>
+<br>
 
 
 
@@ -96,7 +126,7 @@ Rank:<br>
 
 
 Monster:<br>
-<div alignclass="control">
+<div class="control">
 	<div class="select">
 		<select name="monster">
 			<option id="m01" value="anjanath">Anajanath</option>
@@ -153,7 +183,14 @@ Time:<br>
 			<br>
 	</div>
 		<input type="button" value="Submit">
-
-
+		
+</div>
+<?php 	
+mysqli_close($conn); 
+?>
 </body>
 </html>
+
+
+
+
